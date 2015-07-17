@@ -10,7 +10,7 @@ rm -rf php
 
 # Install drush
 composer global require drush/drush:dev-master
-alias drush=~/.composer/vendor/drush/drush/drush
+PATH="~/.composer/vendor/drush/drush:$PATH"
 
 # Install Drupal
 drush dl --default-major=8 --destination=$OPENSHIFT_DATA_DIR --drupal-project-rename=php -y
