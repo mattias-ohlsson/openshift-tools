@@ -1,0 +1,11 @@
+#!/bin/bash
+# https://github.com/mattias-ohlsson/openshift-tools
+
+cd $(mktemp -d)
+git clone $OPENSHIFT_HOMEDIR'git'/$OPENSHIFT_APP_NAME.git
+cd $OPENSHIFT_APP_NAME
+mkdir $OPENSHIFT_DATA_DIR/php
+ln -sfn ../data/php php
+git add php
+git commit -m 'ln -sfn ../data/php php'
+git push origin master
