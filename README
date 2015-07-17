@@ -4,3 +4,7 @@ Tools for OpenShift
 ## wwwroot-no-git
 
     curl -s https://raw.githubusercontent.com/mattias-ohlsson/openshift-tools/master/wwwroot-no-git | bash
+
+## install-drupal
+
+    curl -s https://raw.githubusercontent.com/mattias-ohlsson/openshift-tools/master/install-drupal | bash
