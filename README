@@ -1,0 +1,6 @@
+# openshift-tools
+Tools for OpenShift
+
+## wwwroot-no-git
+
+    curl -s https://raw.githubusercontent.com/mattias-ohlsson/openshift-tools/master/wwwroot-no-git | bash
