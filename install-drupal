@@ -1,0 +1,29 @@
+#!/bin/bash
+# https://github.com/mattias-ohlsson/openshift-tools
+
+cd $OPENSHIFT_DATA_DIR
+
+# Remove/clean
+chmod 777 -R php/sites/
+rm -rf downloads
+rm -rf php
+
+# Install drush
+composer global require drush/drush:dev-master
+alias drush=~/.composer/vendor/drush/drush/drush
+
+# Install Drupal
+drush dl --default-major=8 --destination=$OPENSHIFT_DATA_DIR --drupal-project-rename=php -y
+cd $OPENSHIFT_REPO_DIR/php/
+drush si minimal --db-url=${OPENSHIFT_MYSQL_DB_URL}drupal -y
+
+# Configure Drupal
+drush config-set system.file path.temporary $OPENSHIFT_TMP_DIR -y
+chmod u+w sites/default/
+chmod u+w sites/default/settings.php
+sed -i "s/'$OPENSHIFT_MYSQL_DB_USERNAME'/\$_ENV['OPENSHIFT_MYSQL_DB_USERNAME']/g" sites/default/settings.php
+sed -i "s/'$OPENSHIFT_MYSQL_DB_PASSWORD'/\$_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']/g" sites/default/settings.php
+sed -i "s/'$OPENSHIFT_MYSQL_DB_HOST'/\$_ENV['OPENSHIFT_MYSQL_DB_HOST']/g" sites/default/settings.php
+sed -i "s/'$OPENSHIFT_MYSQL_DB_PORT'/\$_ENV['OPENSHIFT_MYSQL_DB_PORT']/g" sites/default/settings.php
+chmod u-w sites/default/settings.php
+chmod u-w sites/default/
