@@ -27,3 +27,8 @@ sed -i "s/'$OPENSHIFT_MYSQL_DB_HOST'/\$_ENV['OPENSHIFT_MYSQL_DB_HOST']/g" sites/
 sed -i "s/'$OPENSHIFT_MYSQL_DB_PORT'/\$_ENV['OPENSHIFT_MYSQL_DB_PORT']/g" sites/default/settings.php
 chmod u-w sites/default/settings.php
 chmod u-w sites/default/
+
+# Set password
+if [ -n "$DRUPAL_ADMIN_PASSWORD" ]; then
+  drush upwd admin --password="$DRUPAL_ADMIN_PASSWORD"
+fi
